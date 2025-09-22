@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Live Forex News Dashboard - BDT</title>
+    <title>Live Forex Trading Sessions - BDT</title>
     <style>
         * {
             margin: 0;
@@ -44,250 +44,10 @@
             letter-spacing: -0.025em;
         }
 
-        .tabs {
-            display: flex;
-            gap: 0;
-            margin-bottom: 0;
-        }
-
-        .tab {
-            background: #2d3748;
-            color: #a0aec0;
-            padding: 12px 24px;
-            border: none;
-            cursor: pointer;
-            font-size: 0.9rem;
-            font-weight: 500;
-            transition: all 0.3s ease;
-            border-bottom: 2px solid transparent;
-        }
-
-        .tab:first-child {
-            border-radius: 8px 0 0 0;
-        }
-
-        .tab:last-child {
-            border-radius: 0 8px 0 0;
-        }
-
-        .tab.active {
-            background: #1a1f2e;
-            color: #ffffff;
-            border-bottom-color: #9f7aea;
-        }
-
-        .tab:hover:not(.active) {
-            background: #374151;
-            color: #e2e8f0;
-        }
-
-        .tab-content {
-            display: none;
-        }
-
-        .tab-content.active {
-            display: block;
-        }
-
         .current-time {
             font-size: 1.1rem;
             color: #a0aec0;
             font-weight: 400;
-            font-family: 'SF Mono', Monaco, 'Cascadia Code', monospace;
-        }
-
-        .content-container {
-            padding: 0;
-        }
-
-        .news-container {
-            padding: 60px;
-        }
-
-        .analysis-container {
-            padding: 60px;
-        }
-
-        .analysis-header {
-            text-align: center;
-            margin-bottom: 40px;
-        }
-
-        .analysis-header h2 {
-            font-size: 1.5rem;
-            font-weight: 600;
-            color: #ffffff;
-            margin-bottom: 8px;
-        }
-
-        .analysis-header p {
-            color: #a0aec0;
-            font-size: 0.9rem;
-        }
-
-        .analysis-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
-            gap: 24px;
-        }
-
-        .analysis-card {
-            background: #2d3748;
-            border-radius: 12px;
-            padding: 24px;
-            border: 1px solid #4a5568;
-            transition: all 0.3s ease;
-        }
-
-        .analysis-card:hover {
-            background: #374151;
-            border-color: #6b7280;
-        }
-
-        .chart-container {
-            background: #0f1419;
-            border-radius: 8px;
-            padding: 8px;
-            margin: 16px 0;
-            position: relative;
-            height: 280px;
-            overflow: hidden;
-            border: 1px solid #2d3748;
-        }
-
-        .chart-svg {
-            width: 100%;
-            height: 100%;
-        }
-
-        .chart-header {
-            display: flex;
-            justify-content: between;
-            align-items: center;
-            padding: 8px 12px;
-            background: #1a1f2e;
-            border-radius: 6px 6px 0 0;
-            border-bottom: 1px solid #2d3748;
-            margin-bottom: 8px;
-        }
-
-        .timeframe-badge {
-            background: #9f7aea;
-            color: #ffffff;
-            padding: 2px 8px;
-            border-radius: 4px;
-            font-size: 0.7rem;
-            font-weight: 600;
-            font-family: 'SF Mono', Monaco, 'Cascadia Code', monospace;
-        }
-
-        .price-info {
-            display: flex;
-            gap: 12px;
-            font-size: 0.75rem;
-            font-family: 'SF Mono', Monaco, 'Cascadia Code', monospace;
-        }
-
-        .price-label {
-            color: #a0aec0;
-        }
-
-        .price-value {
-            color: #ffffff;
-            font-weight: 600;
-        }
-
-        .price-change {
-            font-weight: 600;
-        }
-
-        .price-up {
-            color: #48bb78;
-        }
-
-        .price-down {
-            color: #f56565;
-        }
-
-        .pair-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-
-        .pair-name {
-            font-size: 1.2rem;
-            font-weight: 600;
-            color: #ffffff;
-            font-family: 'SF Mono', Monaco, 'Cascadia Code', monospace;
-        }
-
-        .session-badge {
-            background: rgba(159, 122, 234, 0.2);
-            color: #9f7aea;
-            padding: 4px 8px;
-            border-radius: 6px;
-            font-size: 0.75rem;
-            font-weight: 500;
-        }
-
-        .analysis-signals {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-
-        .signal-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 12px 16px;
-            background: #1a1f2e;
-            border-radius: 8px;
-            border-left: 4px solid transparent;
-        }
-
-        .signal-bos {
-            border-left-color: #48bb78;
-        }
-
-        .signal-choch {
-            border-left-color: #ed8936;
-        }
-
-        .signal-idm {
-            border-left-color: #4299e1;
-        }
-
-        .signal-label {
-            font-weight: 600;
-            font-size: 0.9rem;
-        }
-
-        .signal-bos .signal-label {
-            color: #48bb78;
-        }
-
-        .signal-choch .signal-label {
-            color: #ed8936;
-        }
-
-        .signal-idm .signal-label {
-            color: #4299e1;
-        }
-
-        .signal-status {
-            font-size: 0.8rem;
-            color: #a0aec0;
-            font-family: 'SF Mono', Monaco, 'Cascadia Code', monospace;
-        }
-
-        .signal-time {
-            font-size: 0.75rem;
-            color: #718096;
-            text-align: center;
-            margin-top: 12px;
             font-family: 'SF Mono', Monaco, 'Cascadia Code', monospace;
         }
 
@@ -387,121 +147,6 @@
             font-size: 0.875rem;
         }
 
-        .news-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-            gap: 24px;
-            margin-bottom: 40px;
-        }
-
-        .news-card {
-            background: #2d3748;
-            border-radius: 12px;
-            padding: 24px;
-            border: 1px solid #4a5568;
-            transition: all 0.3s ease;
-            cursor: pointer;
-            position: relative;
-        }
-
-        .news-card:hover {
-            background: #374151;
-            border-color: #6b7280;
-            transform: translateY(-2px);
-        }
-
-        .news-rank {
-            position: absolute;
-            top: 12px;
-            right: 12px;
-            background: #9f7aea;
-            color: #ffffff;
-            width: 24px;
-            height: 24px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.75rem;
-            font-weight: 600;
-        }
-
-        .news-headline {
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: #ffffff;
-            line-height: 1.4;
-            margin-bottom: 12px;
-            padding-right: 30px;
-        }
-
-        .news-description {
-            font-size: 0.9rem;
-            color: #cbd5e0;
-            line-height: 1.5;
-            margin-bottom: 16px;
-        }
-
-        .news-meta {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 0.8rem;
-            color: #a0aec0;
-        }
-
-        .news-source {
-            font-weight: 500;
-            color: #9f7aea;
-        }
-
-        .news-time {
-            font-family: 'SF Mono', Monaco, 'Cascadia Code', monospace;
-        }
-
-        .daily-news-header {
-            text-align: center;
-            margin-bottom: 40px;
-            padding: 24px;
-            background: #2d3748;
-            border-radius: 12px;
-            border: 1px solid #4a5568;
-        }
-
-        .daily-news-header h2 {
-            font-size: 1.5rem;
-            font-weight: 600;
-            color: #ffffff;
-            margin-bottom: 8px;
-        }
-
-        .daily-news-header p {
-            color: #a0aec0;
-            font-size: 0.9rem;
-        }
-
-        .loading {
-            text-align: center;
-            padding: 60px;
-            color: #a0aec0;
-            font-size: 1.1rem;
-        }
-
-        .error {
-            text-align: center;
-            padding: 60px;
-            color: #f56565;
-            font-size: 1.1rem;
-        }
-
-        .refresh-info {
-            text-align: center;
-            padding: 20px;
-            color: #a0aec0;
-            font-size: 0.9rem;
-            border-top: 1px solid #2d3748;
-        }
-
         .note {
             background: #2d3748;
             padding: 32px 60px;
@@ -540,38 +185,8 @@
                 font-size: 0.95rem;
             }
 
-            .news-container {
-                padding: 20px;
-            }
-
-            .analysis-container {
-                padding: 20px;
-            }
-
-            .analysis-grid {
-                grid-template-columns: 1fr;
-                gap: 16px;
-            }
-
-            .analysis-card {
-                padding: 20px;
-            }
-
             .table-container {
                 padding: 20px;
-            }
-
-            .news-grid {
-                grid-template-columns: 1fr;
-                gap: 16px;
-            }
-
-            .news-card {
-                padding: 20px;
-            }
-
-            .note {
-                padding: 24px 20px;
             }
 
             th, td {
@@ -579,10 +194,15 @@
                 font-size: 0.8rem;
             }
 
-            .tab {
-                padding: 10px 16px;
-                font-size: 0.8rem;
+            .note {
+                padding: 24px 20px;
             }
+        }
+
+        .loading {
+            text-align: center;
+            padding: 20px;
+            color: #7f8c8d;
         }
 
         /* Custom Scrollbar Styling */
@@ -624,79 +244,41 @@
 <body>
     <div class="container">
         <div class="header">
-            <h1 class="title">Live Forex Trading Dashboard</h1>
+            <h1 class="title">Live Forex Trading Sessions</h1>
             <div class="current-time" id="currentTime">Loading...</div>
-            
-            <div class="tabs">
-                <button class="tab active" onclick="switchTab('sessions')">Trading Sessions</button>
-                <button class="tab" onclick="switchTab('news')">Daily News</button>
-            </div>
         </div>
 
-        <div class="content-container">
-            <div id="sessions" class="tab-content active">
-                <div class="table-container">
-                    <table id="forexTable">
-                        <thead>
-                            <tr>
-                                <th>Forex Session</th>
-                                <th>BDT Start Time</th>
-                                <th>BDT End Time</th>
-                                <th>Session Status</th>
-                                <th>Major Pairs</th>
-                                <th>Overlapping Session</th>
-                                <th>Suggested Pairs for Overlap</th>
-                            </tr>
-                        </thead>
-                        <tbody id="tableBody">
-                            <tr>
-                                <td colspan="7" class="loading">Initializing live data...</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
-            <div id="news" class="tab-content">
-                <div class="news-container">
-                    <div class="daily-news-header">
-                        <h2>📰 Top 10 Daily Forex News</h2>
-                        <p>Most important forex and financial news stories updated daily</p>
-                    </div>
-                    <div id="newsContent" class="loading">
-                        Loading today's top forex news...
-                    </div>
-                </div>
-            </div>
-
-
-        </div>
-
-        <div class="refresh-info">
-            <p>Live Trading Sessions • Top 10 Daily Forex News • Last updated: <span id="lastUpdate">-</span></p>
+        <div class="table-container">
+            <table id="forexTable">
+                <thead>
+                    <tr>
+                        <th>Forex Session</th>
+                        <th>BDT Start Time</th>
+                        <th>BDT End Time</th>
+                        <th>Session Status</th>
+                        <th>Major Pairs</th>
+                        <th>Overlapping Session</th>
+                        <th>Suggested Pairs for Overlap</th>
+                    </tr>
+                </thead>
+                <tbody id="tableBody">
+                    <tr>
+                        <td colspan="7" class="loading">Initializing live data...</td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
 
         <div class="note">
-            <h3>📊 Dashboard Information:</h3>
-            <p><strong>Trading Sessions:</strong> Live forex session times in Bangladesh Standard Time (BST = GMT+6) with real-time status updates.</p>
-            <p><strong>Session Times:</strong> Sydney (4:00 AM-1:00 PM), Tokyo (5:00 AM-2:00 PM), London (2:00 PM-11:00 PM), New York (7:00 PM-4:00 AM BST).</p>
-            <p><strong>Daily News:</strong> Top 10 most important forex and financial news stories updated daily from trusted sources.</p>
-            <p><strong>Key Overlaps:</strong> London-New York (7:00 PM-11:00 PM BST) for highest liquidity, Tokyo-London (1:00 PM-2:00 PM BST) for Yen pairs.</p>
+            <h3>📝 Important Notes:</h3>
+            <p><strong>Time Zone:</strong> All times are displayed in Bangladesh Standard Time (BST = GMT+6).</p>
+            <p><strong>Session Times:</strong> Sydney (4:00 AM-1:00 PM BST), Tokyo (5:00 AM-2:00 PM BST), London (2:00 PM-11:00 PM BST), New York (7:00 PM-4:00 AM BST)</p>
+            <p><strong>Key Overlaps:</strong> London-New York (7:00 PM-11:00 PM BST) for major pairs with highest liquidity, Tokyo-London (1:00 PM-2:00 PM BST) for Yen pairs</p>
+            <p><strong>Updates:</strong> Session statuses and overlaps update automatically every second based on current BST time.</p>
         </div>
     </div>
 
     <script>
-        // Tab switching functionality
-        function switchTab(tabName) {
-            // Remove active class from all tabs and content
-            document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
-            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
-            
-            // Add active class to clicked tab and corresponding content
-            event.target.classList.add('active');
-            document.getElementById(tabName).classList.add('active');
-        }
-
         class ForexSessionTracker {
             constructor() {
                 this.sessions = [
@@ -728,8 +310,8 @@
 
                 this.overlapPairs = {
                     'Sydney-Tokyo': ['AUD/JPY', 'NZD/JPY'],
-                    'Tokyo-London': ['EUR/JPY', 'GBP/JPY'],
-                    'London-New York': ['EUR/USD', 'GBP/USD'],
+                    'Tokyo-London': ['EUR/JPY', 'GBP/JPY'], // 1 PM-2 PM BST - High liquidity for Yen pairs
+                    'London-New York': ['EUR/USD', 'GBP/USD'], // 7 PM-11 PM BST - Highest liquidity period
                     'Sydney-London': ['AUD/USD', 'GBP/AUD'],
                     'Tokyo-New York': ['USD/JPY', 'EUR/JPY'],
                     'Sydney-New York': ['AUD/USD', 'NZD/USD']
@@ -740,14 +322,30 @@
 
             init() {
                 this.updateDisplay();
+                // Update every second for real-time accuracy
                 setInterval(() => this.updateDisplay(), 1000);
             }
 
+            getBDTTime() {
+                return new Date().toLocaleString('en-US', {
+                    timeZone: 'Asia/Dhaka',
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    second: '2-digit',
+                    hour12: true
+                });
+            }
+
             getSessionTimes(session) {
+                // Create BST times directly
                 const today = new Date();
                 const bstStart = new Date(today.getFullYear(), today.getMonth(), today.getDate(), session.bstStart, 0, 0);
                 const bstEnd = new Date(today.getFullYear(), today.getMonth(), today.getDate(), session.bstEnd, 0, 0);
                 
+                // Handle sessions that end the next day (like New York)
                 if (session.bstEnd < session.bstStart) {
                     bstEnd.setDate(bstEnd.getDate() + 1);
                 }
@@ -766,14 +364,19 @@
                 return `${displayHour}:00 ${period}`;
             }
 
+
+
             isSessionOpen(session) {
                 const now = new Date();
                 const bstNow = new Date(now.toLocaleString('en-US', {timeZone: 'Asia/Dhaka'}));
                 const currentHour = bstNow.getHours();
                 
+                // Handle sessions that cross midnight (like New York: 19-4)
                 if (session.bstEnd < session.bstStart) {
+                    // Session crosses midnight
                     return currentHour >= session.bstStart || currentHour < session.bstEnd;
                 } else {
+                    // Normal session within same day
                     return currentHour >= session.bstStart && currentHour < session.bstEnd;
                 }
             }
@@ -800,6 +403,11 @@
             }
 
             updateDisplay() {
+                // Update current time
+                document.getElementById('currentTime').textContent = 
+                    `Current BDT Time: ${this.getBDTTime()}`;
+
+                // Update table
                 const tableBody = document.getElementById('tableBody');
                 const overlaps = this.getOverlappingSessions();
                 
@@ -841,261 +449,10 @@
             }
         }
 
-
-
-        class ForexNewsTracker {
-            constructor() {
-                this.init();
-            }
-
-            init() {
-                this.fetchNews();
-                // Fetch news once daily at midnight or when page loads
-                const now = new Date();
-                const tomorrow = new Date(now);
-                tomorrow.setDate(tomorrow.getDate() + 1);
-                tomorrow.setHours(0, 0, 0, 0);
-                
-                const msUntilMidnight = tomorrow.getTime() - now.getTime();
-                
-                // Set timeout for midnight refresh, then daily intervals
-                setTimeout(() => {
-                    this.fetchNews();
-                    setInterval(() => this.fetchNews(), 24 * 60 * 60 * 1000); // Daily
-                }, msUntilMidnight);
-            }
-
-            async fetchNews() {
-                try {
-                    // Get today's date for daily news
-                    const today = new Date();
-                    const todayStr = today.toISOString().split('T')[0];
-                    
-                    // Using a working free news API - NewsAPI.org for daily top forex news
-                    const apiKey = 'b8b4c8c4d4e4f4a4b4c4d4e4f4a4b4c4'; // Demo key for testing
-                    const url = `https://newsapi.org/v2/everything?q=forex OR currency OR "foreign exchange" OR trading&language=en&from=${todayStr}&to=${todayStr}&sortBy=popularity&pageSize=10&apiKey=${apiKey}`;
-                    
-                    const response = await fetch(url);
-                    
-                    if (!response.ok) {
-                        // If API fails, show sample news
-                        this.displayDailySampleNews();
-                        return;
-                    }
-                    
-                    const data = await response.json();
-                    
-                    if (data.status === 'ok' && data.articles) {
-                        // Filter and get top 10 most relevant forex news
-                        const forexNews = data.articles
-                            .filter(article => this.isForexRelated(article))
-                            .slice(0, 10);
-                        
-                        this.displayNews(forexNews.length > 0 ? forexNews : data.articles.slice(0, 10));
-                        this.updateLastUpdateTime();
-                    } else {
-                        this.displayDailySampleNews();
-                    }
-                    
-                } catch (error) {
-                    console.error('Error fetching news:', error);
-                    this.displayDailySampleNews();
-                }
-            }
-
-            isForexRelated(article) {
-                const forexKeywords = ['forex', 'currency', 'exchange rate', 'dollar', 'euro', 'yen', 'pound', 'trading', 'central bank', 'fed', 'ecb', 'boj'];
-                const text = (article.title + ' ' + article.description).toLowerCase();
-                return forexKeywords.some(keyword => text.includes(keyword));
-            }
-
-            displayDailySampleNews() {
-                const today = new Date();
-                const sampleArticles = [
-                    {
-                        title: "Federal Reserve Signals Potential Rate Changes Affecting USD Strength",
-                        description: "The Federal Reserve's latest meeting minutes suggest possible monetary policy adjustments that could significantly impact USD pairs in upcoming trading sessions.",
-                        source: { name: "Financial Times" },
-                        publishedAt: new Date(today.getTime() - 1800000).toISOString(),
-                        url: "#"
-                    },
-                    {
-                        title: "EUR/USD Breaks Key Resistance Level in European Session",
-                        description: "The Euro gained significant ground against the Dollar today, breaking through the 1.0900 resistance level amid positive eurozone economic data.",
-                        source: { name: "Reuters" },
-                        publishedAt: new Date(today.getTime() - 3600000).toISOString(),
-                        url: "#"
-                    },
-                    {
-                        title: "Bank of Japan Intervention Speculation Drives USD/JPY Volatility",
-                        description: "Currency traders are closely watching USD/JPY movements as speculation grows about potential Bank of Japan intervention near the 150 level.",
-                        source: { name: "Bloomberg" },
-                        publishedAt: new Date(today.getTime() - 5400000).toISOString(),
-                        url: "#"
-                    },
-                    {
-                        title: "GBP Strengthens on Positive UK Inflation Data",
-                        description: "The British Pound surged against major currencies following better-than-expected UK inflation figures, boosting expectations for BoE policy decisions.",
-                        source: { name: "MarketWatch" },
-                        publishedAt: new Date(today.getTime() - 7200000).toISOString(),
-                        url: "#"
-                    },
-                    {
-                        title: "Australian Dollar Gains on Strong Employment Numbers",
-                        description: "AUD/USD climbed to daily highs after Australia reported robust employment data, strengthening the case for RBA monetary policy stance.",
-                        source: { name: "FX Street" },
-                        publishedAt: new Date(today.getTime() - 9000000).toISOString(),
-                        url: "#"
-                    },
-                    {
-                        title: "Swiss Franc Reaches Multi-Week High Against Euro",
-                        description: "EUR/CHF declined to its lowest level in weeks as safe-haven demand for the Swiss Franc increased amid global market uncertainty.",
-                        source: { name: "Investing.com" },
-                        publishedAt: new Date(today.getTime() - 10800000).toISOString(),
-                        url: "#"
-                    },
-                    {
-                        title: "Canadian Dollar Weakens on Oil Price Decline",
-                        description: "USD/CAD gained momentum as falling crude oil prices weighed on the commodity-linked Canadian Dollar during North American trading hours.",
-                        source: { name: "DailyFX" },
-                        publishedAt: new Date(today.getTime() - 12600000).toISOString(),
-                        url: "#"
-                    },
-                    {
-                        title: "ECB Officials Signal Dovish Stance on Future Rate Decisions",
-                        description: "European Central Bank officials' recent comments suggest a more cautious approach to future rate hikes, impacting Euro sentiment across major pairs.",
-                        source: { name: "ForexLive" },
-                        publishedAt: new Date(today.getTime() - 14400000).toISOString(),
-                        url: "#"
-                    },
-                    {
-                        title: "New Zealand Dollar Drops on RBNZ Policy Expectations",
-                        description: "NZD/USD fell sharply after market participants adjusted expectations for Reserve Bank of New Zealand policy following recent economic indicators.",
-                        source: { name: "FXEmpire" },
-                        publishedAt: new Date(today.getTime() - 16200000).toISOString(),
-                        url: "#"
-                    },
-                    {
-                        title: "Gold Prices Impact Currency Markets Amid Risk-Off Sentiment",
-                        description: "Rising gold prices and risk-off sentiment in global markets are influencing major currency pair movements, particularly affecting USD and JPY flows.",
-                        source: { name: "XM.com" },
-                        publishedAt: new Date(today.getTime() - 18000000).toISOString(),
-                        url: "#"
-                    }
-                ];
-                
-                this.displayNews(sampleArticles);
-                this.updateLastUpdateTime();
-            }
-
-            displayNews(articles) {
-                const newsContent = document.getElementById('newsContent');
-                
-                if (!articles || articles.length === 0) {
-                    newsContent.innerHTML = '<div class="error">No forex news available for today.</div>';
-                    return;
-                }
-
-                const newsGrid = document.createElement('div');
-                newsGrid.className = 'news-grid';
-
-                articles.slice(0, 10).forEach((article, index) => {
-                    if (article.title && article.description) {
-                        const newsCard = this.createNewsCard(article, index + 1);
-                        newsGrid.appendChild(newsCard);
-                    }
-                });
-
-                newsContent.innerHTML = '';
-                newsContent.appendChild(newsGrid);
-            }
-
-            createNewsCard(article, rank) {
-                const card = document.createElement('div');
-                card.className = 'news-card';
-                
-                // Format the publication date
-                const pubDate = new Date(article.publishedAt);
-                const formattedDate = pubDate.toLocaleString('en-US', {
-                    timeZone: 'Asia/Dhaka',
-                    month: 'short',
-                    day: 'numeric',
-                    hour: '2-digit',
-                    minute: '2-digit',
-                    hour12: true
-                });
-
-                card.innerHTML = `
-                    <div class="news-rank">${rank}</div>
-                    <div class="news-headline">${this.truncateText(article.title, 100)}</div>
-                    <div class="news-description">${this.truncateText(article.description || '', 150)}</div>
-                    <div class="news-meta">
-                        <span class="news-source">${article.source?.name || 'Financial News'}</span>
-                        <span class="news-time">${formattedDate}</span>
-                    </div>
-                `;
-
-                // Add click handler to open article
-                if (article.url && article.url !== '#') {
-                    card.addEventListener('click', () => {
-                        window.open(article.url, '_blank', 'noopener,noreferrer');
-                    });
-                    card.style.cursor = 'pointer';
-                }
-
-                return card;
-            }
-
-            truncateText(text, maxLength) {
-                if (!text) return '';
-                if (text.length <= maxLength) return text;
-                return text.substring(0, maxLength).trim() + '...';
-            }
-
-            updateLastUpdateTime() {
-                const now = new Date().toLocaleString('en-US', {
-                    timeZone: 'Asia/Dhaka',
-                    hour: '2-digit',
-                    minute: '2-digit',
-                    hour12: true
-                });
-                
-                const lastUpdateElement = document.getElementById('lastUpdate');
-                if (lastUpdateElement) {
-                    lastUpdateElement.textContent = now;
-                }
-                this.lastUpdate = new Date();
-            }
-        }
-
-        // Global time update function
-        function updateCurrentTime() {
-            const now = new Date().toLocaleString('en-US', {
-                timeZone: 'Asia/Dhaka',
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric',
-                hour: '2-digit',
-                minute: '2-digit',
-                second: '2-digit',
-                hour12: true
-            });
-            
-            document.getElementById('currentTime').textContent = `Current BDT Time: ${now}`;
-        }
-
-        // Initialize everything when page loads
+        // Initialize the tracker when page loads
         document.addEventListener('DOMContentLoaded', () => {
-            // Initialize session tracker
-            const sessionTracker = new ForexSessionTracker();
-            
-            // Initialize news tracker
-            new ForexNewsTracker();
-            
-            // Update time immediately and then every second
-            updateCurrentTime();
-            setInterval(updateCurrentTime, 1000);
+            new ForexSessionTracker();
         });
     </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'98357847d0f1d063',t:'MTc1ODU4MjU2NS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'98353f313521d063',t:'MTc1ODU4MDIyNy4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
